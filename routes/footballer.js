@@ -14,6 +14,20 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.get('/freeagent', (req, res, next) => {
+    const promise=Footballer.find({
+        team_id:{
+            $exists:false
+        }
+    });
+
+    promise.then((data)=>{
+        res.json(data);
+    }).catch((err)=>{
+        res.json(err);
+    });
+});
+
 router.get('/:footballer_id', (req, res, next) => {
     const promise=Footballer.findById(req.params.footballer_id);
 
@@ -98,5 +112,7 @@ router.get('/:position_number/top10', (req, res, next) => {
         res.json(err);
     });
 });
+
+
 
 module.exports = router;
