@@ -72,4 +72,22 @@ router.delete('/:footballer_id', (req, res, next) => {
     });
 });
 
+router.get('/:position_number/top10', (req, res, next) => {
+    const promise=Footballer.aggregate([
+        {
+            $match: {
+                position_number:parseInt(req.params.position_number)
+            }
+        }
+    ]).sort({'rating':-1}).limit(10);
+
+    promise.then((footballer)=>{
+        if(!footballer)
+            next({message:'The footballer is not found'});
+        res.json(footballer);
+    }).catch((err)=>{
+        res.json(err);
+    });
+});
+
 module.exports = router;
