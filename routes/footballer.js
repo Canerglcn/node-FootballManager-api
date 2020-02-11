@@ -41,4 +41,23 @@ router.post('/new', (req, res, next) => {
 
 });
 
+
+router.put('/:footballer_id', (req, res, next) => {
+    const promise=Footballer.findByIdAndUpdate(
+        req.params.footballer_id,
+        req.body,
+        {
+        new:true
+        }
+    );
+
+    promise.then((footballer)=>{
+        if(!footballer)
+            next({message:'The footballer is not found'});
+        res.json(footballer);
+    }).catch((err)=>{
+        res.json(err);
+    });
+});
+
 module.exports = router;
