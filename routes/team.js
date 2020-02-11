@@ -110,8 +110,6 @@ router.get('/:team_id', (req, res, next) => {
 });
 
 
-
-
 router.post('/new', (req, res, next) => {
 
   const team=new Team(req.body);
@@ -125,6 +123,21 @@ router.post('/new', (req, res, next) => {
 
 });
 
+router.put('/:team_id', (req,res,next)=>{
+     const promise=Team.findByIdAndUpdate(
+        req.params.team_id,
+        req.body,
+         { new:true}
+      );
+
+     promise.then((team)=>{
+      if(!team)
+        next({message:'The team is not found'});
+      res.json(team);
+     }).catch((err)=>{
+       res.json(err);
+     });
+});
 
 
 
