@@ -18,8 +18,10 @@ const FootballerSchema=new Schema({
         max:99
         //unique:true
     },
-    datebirth:{
-        type:Date,  //'19800810'
+    age:{
+        type:Number,
+        max:50,
+        min:15
     },
     country: {
      type:String,

@@ -84,7 +84,8 @@ router.get('/:position_number/top10', (req, res, next) => {
                 position_number: 1,
                 name:1,
                 surname:1,
-                rating:1
+                rating:1,
+                age:1
             }
         }
     ]).sort({'rating':-1}).limit(10);
