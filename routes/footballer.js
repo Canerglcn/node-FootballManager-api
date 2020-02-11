@@ -60,4 +60,16 @@ router.put('/:footballer_id', (req, res, next) => {
     });
 });
 
+router.delete('/:footballer_id', (req, res, next) => {
+    const promise=Footballer.findByIdAndRemove(req.params.footballer_id);
+
+    promise.then((footballer)=>{
+        if(!footballer)
+            next({message:'The footballer is not found'});
+        res.json({status:1});
+    }).catch((err)=>{
+        res.json(err);
+    });
+});
+
 module.exports = router;
