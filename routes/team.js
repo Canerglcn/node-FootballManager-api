@@ -139,6 +139,18 @@ router.put('/:team_id', (req,res,next)=>{
      });
 });
 
+router.delete('/:team_id', (req,res,next)=>{
+  const promise=Team.findByIdAndRemove(req.params.team_id);
+
+  promise.then((team)=>{
+    if(!team)
+      next({message:'The team is not found'});
+    res.json({status:1});
+  }).catch((err)=>{
+    res.json(err);
+  });
+});
+
 
 
 
