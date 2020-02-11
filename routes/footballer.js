@@ -4,7 +4,18 @@ const router = express.Router();
 
 const Footballer=require('../models/Footballer');
 
-router.get('/new', (req, res, next) => {
+router.get('/', (req, res, next) => {
+    const promise=Footballer.find({ });
+
+    promise.then((data)=>{
+    res.json(data);
+    }).catch((err)=>{
+        res.json(err);
+    });
+});
+
+
+router.post('/new', (req, res, next) => {
     const footballer=new Footballer({
         name:'caner',
         surname:'canerovic',
