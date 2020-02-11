@@ -78,6 +78,14 @@ router.get('/:position_number/top10', (req, res, next) => {
             $match: {
                 position_number:parseInt(req.params.position_number)
             }
+        },
+        {
+            $project: {
+                position_number: 1,
+                name:1,
+                surname:1,
+                rating:1
+            }
         }
     ]).sort({'rating':-1}).limit(10);
 
