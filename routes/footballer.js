@@ -14,6 +14,19 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.get('/:footballer_id', (req, res, next) => {
+    const promise=Footballer.findById(req.params.footballer_id);
+
+    promise.then((footballer)=>{
+        if(!footballer)
+            next({message:'The footballer is not found'});
+        res.json(footballer);
+    }).catch((err)=>{
+        res.json(err);
+    });
+});
+
+
 
 router.post('/new', (req, res, next) => {
 
