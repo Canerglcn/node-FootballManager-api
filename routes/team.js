@@ -152,9 +152,4 @@ router.delete('/:team_id', (req,res,next)=>{
 });
 
 
-
-
-
-
-
 module.exports = router;

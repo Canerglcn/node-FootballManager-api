@@ -5,7 +5,51 @@ const router = express.Router();
 const Footballer=require('../models/Footballer');
 
 router.get('/', (req, res, next) => {
-    const promise=Footballer.find({ });
+    const promise= Footballer.aggregate([
+        {
+            $lookup:{
+                from:'teams',
+                localField:'team_id',
+                foreignField:'_id',
+                as:'teams'
+            }
+        },
+        {
+            $unwind:{
+                path:'$teams',
+                preserveNullAndEmptyArrays:true,
+            }
+        },
+        {
+            $group:{
+                _id:{
+                    _id:'$_id',
+                    name:'$name',
+                    surname:'$surname',
+                    position_number:'$position_number',
+                    age:'$age',
+                    country:'$country',
+                    rating:'$rating'
+                },
+                teams:{
+                    $push:'$teams'
+                }
+            }
+        },
+        {
+            $project:{
+                _id:'$_id._id',
+                name:'$_id.name',
+                surname:'$_id.surname',
+                position_number:'$_id.position_number',
+                age:'$_id.age',
+                country:'$_id.country',
+                rating:'$_id.rating',
+                team:'$teams.name'
+            }
+        }
+
+    ]);
 
     promise.then((data)=>{
     res.json(data);
