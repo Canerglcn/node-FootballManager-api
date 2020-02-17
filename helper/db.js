@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 module.exports=()=>{
-    mongoose.connect('mongodb://localhost/footballmanager',{ useNewUrlParser: true,useUnifiedTopology: true});
+    mongoose.connect(process.env.DB_STRING,{ useNewUrlParser: true,useUnifiedTopology: true});
 
     mongoose.connection.on('open',() => {
         console.log("MongoDb: Connected ");
